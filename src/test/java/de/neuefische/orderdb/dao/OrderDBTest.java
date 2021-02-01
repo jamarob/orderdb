@@ -2,6 +2,7 @@ package de.neuefische.orderdb.dao;
 
 import de.neuefische.orderdb.model.Order;
 import de.neuefische.orderdb.model.Product;
+import de.neuefische.orderdb.model.StockProduct;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,9 +17,9 @@ class OrderDBTest {
         // Given
         OrderDB orderDB = new OrderDB();
         List<Product> products = List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"),
-                new Product("product#3", "And one more sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"),
+                new StockProduct("product#3", "And one more sweet product")
         );
         Order order = new Order("order#1", products);
         orderDB.addOrder(order);
@@ -28,9 +29,9 @@ class OrderDBTest {
 
         // Then
         Order expectedOrder = new Order("order#1", List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"),
-                new Product("product#3", "And one more sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"),
+                new StockProduct("product#3", "And one more sweet product")
         ));
         assertEquals(expectedOrder, actual.get());
     }
@@ -39,20 +40,20 @@ class OrderDBTest {
     public void testListOrdersListsAllOrders(){
         // Given
         OrderDB orderDB = new OrderDB();
-        orderDB.addOrder(new Order("order#1", List.of(new Product("product#1", "A sweet product"))));
+        orderDB.addOrder(new Order("order#1", List.of(new StockProduct("product#1", "A sweet product"))));
         orderDB.addOrder(new Order("order#2", List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"))
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"))
         ));
 
         // When
         List<Order> actual = orderDB.listOrders();
 
         // Then
-        Order expectedOrder1 = new Order("order#1", List.of(new Product("product#1", "A sweet product")));
+        Order expectedOrder1 = new Order("order#1", List.of(new StockProduct("product#1", "A sweet product")));
         Order expectedOrder2 = new Order("order#2", List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product")
         ));
 
         assertEquals(2, actual.size());

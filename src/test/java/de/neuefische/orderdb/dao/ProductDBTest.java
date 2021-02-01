@@ -1,6 +1,7 @@
 package de.neuefische.orderdb.dao;
 
 import de.neuefische.orderdb.model.Product;
+import de.neuefische.orderdb.model.StockProduct;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,9 +15,9 @@ class ProductDBTest {
     public void testContainsAllTheProducts(){
         // Given
         List<Product> products = List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"),
-                new Product("product#3", "And one more sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"),
+                new StockProduct("product#3", "And one more sweet product")
         );
         ProductDB productDB = new ProductDB(products);
 
@@ -25,18 +26,18 @@ class ProductDBTest {
 
         // Then
         assertEquals(3, actual.size());
-        assertTrue(actual.contains(new Product("product#1", "A sweet product")));
-        assertTrue(actual.contains(new Product("product#2", "Another sweet product")));
-        assertTrue(actual.contains(new Product("product#3", "And one more sweet product")));
+        assertTrue(actual.contains(new StockProduct("product#1", "A sweet product")));
+        assertTrue(actual.contains(new StockProduct("product#2", "Another sweet product")));
+        assertTrue(actual.contains(new StockProduct("product#3", "And one more sweet product")));
     }
 
     @Test
     public void testGetReturnsOptionalWithTheProduct(){
         // Given
         List<Product> products = List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"),
-                new Product("product#3", "And one more sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"),
+                new StockProduct("product#3", "And one more sweet product")
         );
         ProductDB productDB = new ProductDB(products);
 
@@ -44,16 +45,16 @@ class ProductDBTest {
         Optional<Product> actual = productDB.getProductById("product#2");
 
         // Then
-        assertEquals(new Product("product#2", "Another sweet product"), actual.get());
+        assertEquals(new StockProduct("product#2", "Another sweet product"), actual.get());
     }
 
     @Test
     public void testGetReturnsEmptyOptionalForUnknownId(){
         // Given
         List<Product> products = List.of(
-                new Product("product#1", "A sweet product"),
-                new Product("product#2", "Another sweet product"),
-                new Product("product#3", "And one more sweet product")
+                new StockProduct("product#1", "A sweet product"),
+                new StockProduct("product#2", "Another sweet product"),
+                new StockProduct("product#3", "And one more sweet product")
         );
         ProductDB productDB = new ProductDB(products);
 
